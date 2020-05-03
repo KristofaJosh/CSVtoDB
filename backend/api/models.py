@@ -10,3 +10,11 @@ class ZenoModel(models.Model):
 
     def __str__(self):
         return self.csv_id
+
+
+class GetRequestActivityLog(models.Model):
+    url = models.CharField(max_length=1024)
+    timeStamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return 'Request'

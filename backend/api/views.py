@@ -2,7 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .serializers import ZenoSerializer
-from .models import ZenoModel
+from .models import ZenoModel, GetRequestActivityLog
 import pandas as pd
 
 
@@ -37,3 +37,10 @@ class ZenoViewSet(viewsets.ModelViewSet):
         except:
             response = {'message': 'make sure file is of right format'}
             return Response(response, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    @action(detail=False, methods=['DELETE'])
+    def remove_data(self, request):
+        destroy = ZenoModel.objects.all()
+        destroy.delete()
+        response = {'message': 'Database emptied!'}
+        return Response(response, status=status.HTTP_200_OK)
