@@ -12,7 +12,7 @@ function App() {
         setStatus({loading: true, message: 'Retrieving Data ...'});
         axios({
             method: 'GET',
-            url: 'http://127.0.0.1:8000/csv_db/',
+            url: 'http://127.0.0.1:8000/api/all/',
         }).then((response) => {
             setData(response.data);
             if (response.data.length > 0) {
@@ -42,19 +42,15 @@ function App() {
 
             axios({
                 method: 'PATCH',
-                url: 'http://127.0.0.1:8000/upload/',
-                data: formData
+                url: 'http://127.0.0.1:8000/api/all/translate_data/',
+                data: formData,
             }).then((response) => {
-                if (response.status === 201) {
-                    setButtonStates({loading: false, status: 'detached'});
-                    setStatus({loading: false, message: 'Uploaded!'});
-                }
+                setButtonStates({loading: false, status: 'detached'});
+                setStatus({loading: false, message: response.data.message});
 
             }).catch((err) => {
                 setButtonStates({loading: false, status: 'detach'});
-                if (err.response.status === 500) {
-                    setStatus({loading: false, message: 'Invalid File format'});
-                }
+                setStatus({loading: false, message: err.response.data.message});
             });
         }
     };
@@ -73,7 +69,7 @@ function App() {
                     <h3>Upload CSV</h3>
 
                     <span>
-                        <input type="file" accept={'csv'} onChange={handleChange}/>
+                        <input type="file" accept={'.csv'} onChange={handleChange}/>
                         <button type={'submit'} onClick={submitForm} disabled={buttonStates.loading}>
                             {buttonStates.loading ? buttonStates.status : buttonStates.status}
                         </button>
@@ -98,13 +94,13 @@ function App() {
                         </div>
 
                         :
-                        data.map((el) => (
-                            <div className={'card'}>
-                                <div key={el.idd} className={'card-info'}>
-                                    <span>{el.idd}</span>
-                                    <span>{el.temperature}</span>
-                                    <span>{el.duration}</span>
-                                    <span>{el.timestamp}</span>
+                        data.map((el, index) => (
+                            <div key={index} className={'card'}>
+                                <div key={index} className={'card-info'}>
+                                    <span key={el.csv_id}>{el.csv_id}</span>
+                                    <span key={el.csv_temperature}>{el.csv_temperature}</span>
+                                    <span key={el.csv_duration}>{el.csv_duration}</span>
+                                    <span key={el.csv_timestamp}>{el.csv_timestamp}</span>
                                 </div>
                                 {/*<button type={'submit'} onClick={submitForm}>edit</button>*/}
                             </div>

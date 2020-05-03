@@ -1,8 +1,11 @@
-from django.urls import path
-from .views import ZenoView, ZenoPost, ZenoUpload
+from django.urls import path, include
+from rest_framework import routers
+from .views import ZenoViewSet
+
+router = routers.DefaultRouter()
+router.register('all', ZenoViewSet)
+
 
 urlpatterns = [
-    path('all/', ZenoView.as_view()),
-    path('post/', ZenoPost.as_view()),
-    path('upload/', ZenoUpload.as_view()),
+    path('', include(router.urls)),
 ]
