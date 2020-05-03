@@ -13,8 +13,9 @@ class ZenoModel(models.Model):
 
 
 class GetRequestActivityLog(models.Model):
+    method = models.CharField(max_length=6)
     url = models.CharField(max_length=1024)
-    timeStamp = models.DateTimeField(auto_now_add=True)
+    timeStamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return 'Request'

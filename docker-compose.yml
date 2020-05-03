@@ -3,10 +3,10 @@ version: "3.7"
 services:
   django:
     container_name: django_server
-    build: ./backend/zeno_server
+    build: ./backend
     command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
-    - ./backend/zeno_server:/zeno_task/backend
+    - ./backend:/zenoContainer/backend
     ports:
       - "8000:8000"
 
@@ -17,8 +17,8 @@ services:
     command: yarn start
 
     volumes:
-      - ./frontend:/zeno_task/frontend
-      - ./frontend/node_modules:/zeno_task/frontend/node_modules
+      - ./frontend:/zenoContainer/frontend
+      - ./frontend/node_modules:/zenoContainer/frontend/node_modules
 
     ports:
       - "3000:3000"

@@ -3,7 +3,7 @@ after which, this data is presented to the user in a web app.
 
 ##### For this project assumptions are:
 - No data will be deleted 
-- Data will and can only be added or data can be updated if it exists
+- Data will and can only be modified if it exists else new record will be created
 - CSV has a defined format [id, temperature, duration, timestamp] any other format will not work.
 
 ##### Choice of Database

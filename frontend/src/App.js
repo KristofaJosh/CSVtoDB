@@ -31,6 +31,23 @@ function App() {
         setUpload({file: e.target.files[0]})
     };
 
+    const clearDB = (e) => {
+        e.preventDefault();
+        if (data.length > 0) {
+            setData([]);
+            setButtonStates({loading: false, status: 'detach'});
+
+            axios({
+                method: 'DELETE',
+                url: 'http://127.0.0.1:8000/api/all/remove_data/',
+            }).then((response) => {
+                setStatus({loading: false, message: response.data.message});
+            }).catch((err) => {
+                setStatus({loading: false, message: 'Error Occurred, Try again'});
+            });
+        }
+    };
+
     const submitForm = (e) => {
         e.preventDefault();
         if (fileUpload.file !== '') {
@@ -70,10 +87,12 @@ function App() {
 
                     <span>
                         <input type="file" accept={'.csv'} onChange={handleChange}/>
-                        <button type={'submit'} onClick={submitForm} disabled={buttonStates.loading}>
-                            {buttonStates.loading ? buttonStates.status : buttonStates.status}
-                        </button>
-
+                        <div>
+                            <button type={'submit'} onClick={submitForm} disabled={buttonStates.loading}>
+                                {buttonStates.loading ? buttonStates.status : buttonStates.status}
+                            </button>
+                            {data.length > 0 ? <button onClick={clearDB}>Clear DB</button> : null}
+                        </div>
                     </span>
                 </div>
                 <div className={'csv'}>
@@ -94,7 +113,7 @@ function App() {
                         </div>
 
                         :
-                        data.map((el, index) => (
+                        data && data.map((el, index) => (
                             <div key={index} className={'card'}>
                                 <div key={index} className={'card-info'}>
                                     <span key={el.csv_id}>{el.csv_id}</span>
