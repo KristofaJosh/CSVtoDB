@@ -2,7 +2,7 @@ This is a **Minimal Viable Product** that illustrates extracting data from the p
 after which, this data is presented to the user in a web app.
 
 ##### For this project assumptions are:
-- No data will be deleted 
+- Single data will not be deleted but all
 - Data will and can only be modified if it exists else new record will be created
 - CSV has a defined format [id, temperature, duration, timestamp] any other format will not work.
 
