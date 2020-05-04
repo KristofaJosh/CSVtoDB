@@ -5,29 +5,39 @@
 - Docker Compose
     - make sure you have docker desktop installed and shared drive checked.
     - run **docker-compose up --build** from the root directory
-        - consistently you can use **docker-compose up** after first build
-    ###### View DB
-        - run docker ps -a
-            you should see two images
-                1. zeno_django, copy the CONTAINER ID
-                2. create super user with docker by running
-                    
+    ###### Setup DB
+    you will need an account to view DB
+    - you can create super user with docker by running
+        - docker-compose run django python manage.py migrate
+        - docker-compose run django python manage.py createsuperuser
+        - docker-compose run django python manage.py makemigrations
+        - docker-compose run django python manage.py migrate
+        **docker-compose up**
+    route is _localhost:8000/admin_
+                                    
     
 - Locally
-    - navigate into the backend and run **python manage.py runserver**
-    - navigate into the frontend and run **yarn start**
-    you should have two web servers running and your web browser should open if not;
-        - in your browser; enter http://localhost:3000
-    ###### View DB
+    ###### Setup DB
+        - create super user with python manage.py migrate
+        - create super user with python manage.py makemigrations
         - create super user with python manage.py createsuperuser
     follow the instructions
+    #
+        - navigate into the backend folder and run **python manage.py runserver**
+        - navigate into the frontend folder and run **yarn start**
+        - you should have two web servers running and your web browser should open if not;
+        - in your browser front end: enter http://localhost:3000
+        - in your browser back end: enter http://localhost:8000
+        
      
         
 - Docker Image
     - Docker Frontend 
-        - get the [image]()
+        - get the [image](https://hub.docker.com/repository/docker/chrisjosh/zeno_client)
+        - docker pull chrisjosh/zeno_client
         
     - Docker Backend 
-        - get the [image]()
-    
-    use docker commands to run the containers seperately
+        - get the [image](https://hub.docker.com/repository/docker/chrisjosh/zeno_django_server)
+        - or docker pull chrisjosh/zeno_django_server
+
+    use docker run <image name> command to run the containers seperately

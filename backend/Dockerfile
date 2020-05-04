@@ -10,7 +10,6 @@ COPY requirements.txt /zenoContainer/backend
 
 RUN pip install -r requirements.txt
 
-
 COPY . /zenoContainer/backend
 
 EXPOSE 8000
