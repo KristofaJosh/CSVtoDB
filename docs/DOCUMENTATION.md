@@ -21,3 +21,6 @@ for this exercise, although I decided to use the pandas module because I find it
 
 _PATCH method is used to make changes to part of the data_
 _PUT method was not used because it only allows a complete replacement of a document._
+
+###### Middleware
+- a custom middle ware was built in this project to filter the Get request and log it in the database, loggers cannot log request
